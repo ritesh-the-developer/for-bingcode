@@ -1,464 +1,255 @@
-{% extends 'main/basic.html' %}
+{% extends 'blogs/base.html' %}
+
+{% block title%}
+Welcome to Blogs - SocialScraper.in
+{% endblock %}
+
+{% block script %}
 
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'blogs/css/style.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-{% block head %}
-  
 
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Youtube Description Grabber/Extractor</title>
-    <meta name="description" content="Youtube Description Grabber , Youtube Thumbnail Grabber , Youtube Video Downloader , Youtube to mp3 converter, Adfree Youtube Video Downloader, Best Youutbe Downloader , Social Media Tools , Socialcraper.com">
-    <link rel="stylesheet" href="{% static 'main/assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Animated-Type-Heading.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Animated-Typing-With-Blinking.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Boostrap-Tabs.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Pricing-Tables-pricing-table.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Pricing-Tables.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/responsive-video-youtube.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Responsive-Youtube-Embed.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/Separator-with-icon.css' %}">
-    <link rel="stylesheet" href="{% static 'main/assets/css/text-box.css' %}">
-  
-  {% endblock head %}
-  
-  
-  
-  {% block body %}
-    
-  
-  
-  {% block script %}
-  
-  
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-    @import url('https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
-    
-*, *:before, *:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+<style>
+  .owl-carousel {
+    display: flex;
+    flex-wrap: nowrap;  /*changed from nowrap to wrap */
+    justify-content: center;
+    margin-bottom: 40px;
+   }  
+
+  .item {
+    width: 300px;
+    margin-right: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+    background-color: #2196f3;
+  }
+
+  .img-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 180px;
+  }
+
+  .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    transition: all 0.3s ease;
+  }
+
+  .bg-primary {
+    background-color: #2196f3;
+  }
+
+  .btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  @media only screen and (max-width: 768px) {
+    .item {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+</style>
+
+
+
+<!-- share icon css -->
+<style>
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-html, body {
-  height: 100%;
+.social-icons.show {
+  opacity: 1;
+  transform: translateY(0px);
 }
 
-body {
-  font: 18px/1 'Open Sans', sans-serif;
-  color: #555;
-  background: #eee;
-}
-
-#tsum-tabs h1 {
-  padding: 50px 0;
-  font-weight: 400;
-  text-align: center;
-}
-
-#tsum-tabs p {
-  margin: 0 0 20px;
-  line-height: 1.5;
-}
-
-#tsum-tabs main {
-  width: 100%;
-  min-width: 320px;
-  max-width: 800px;
-  padding: 20px;
-  margin: 0 auto;
-  background: #fff;
-}
-
-#tsum-tabs section {
-  display: none;
-  padding: 20px 0 0;
-  border-top: 1px solid #ddd;
-  
-}
-
-#tsum-tabs input {
-  display: none;
-}
-
-#tsum-tabs label {
+.social-icons a {
   display: inline-block;
-  margin: 0 0 -1px;
-  padding: 15px 25px;
-  font-weight: 600;
-  text-align: center;
-  color: #bbb;
-  border: 1px solid transparent;
-  max-width: 32%;
+  margin: 0 10px;
+  font-size: 28px;
+  color: #444;
+  transition: all 0.3s ease-in-out;
+  animation: glitter 2s infinite ease-in-out;
 }
 
-#tsum-tabs label:before {
-  font-family: fontawesome;
-  font-weight: normal;
-  margin-right: 10px;
-  
-}
-
-#tsum-tabs label[for*='1']:before { content: '\f03d'; }
-#tsum-tabs label[for*='2']:before { content: '\f131'; }
-#tsum-tabs label[for*='3']:before { content: '\f001'; }
-
-
-#tsum-tabs label:hover {
-  color: #888;
-  cursor: pointer;
-}
-
-#tsum-tabs input:checked + label {
+.social-icons a:hover {
   color: #555;
-  border: 1px solid #ddd;
-  border-top: 2px solid orange;
-  border-bottom: 1px solid #fff;
-  
+  transform: translateY(-5px); /* add a translateY transform on hover */
 }
 
-#tsum-tabs #tab1:checked ~ #content1,
-#tsum-tabs #tab2:checked ~ #content2,
-#tsum-tabs #tab3:checked ~ #content3 {
-  display: block;
-}
-
-@media screen and (max-width: 650px) {
-  #tsum-tabs label {
-    text-align: center;
-    font-size: 20px;
-     margin-right:10px;
-     padding-left: 0px;
-     width: 27%;
-    }
-    #tsum-tabs label:before {
-      margin-right: 10px;
-      font-size: 25px;
-      padding-left: 0px;
-    }
-    
-    
+/* define the glitter animation */
+@keyframes glitter {
+  0% {
+    transform: translate(-2px, -2px); /* move the icon up and left */
+    opacity: 0.5;
   }
-  
-  
-  @media screen and (max-width: 400px) {
-  #tsum-tabs label {
-    margin-right: 10px;
-    padding-left: 0px;
-    width:27%;
+  25% {
+    transform: translate(2px, 2px); /* move the icon down and right */
+    opacity: 1;
   }
-  #tsum-tabs label:before {
-      margin-right: 10px;
-      font-size: 15px;
-      margin-left: 0px;
-      padding-left: 0px;
-    }
-    
+  50% {
+    transform: translate(2px, -2px); /* move the icon up and right */
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(-2px, 2px); /* move the icon down and left */
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-2px, -2px); /* move the icon up and left */
+    opacity: 0.5;
+  }
 }
 
 </style>
 
-
-
-
-<style>
-  
-  /* #overflow slider design */
-
-/* #content3 */
-#content3 {
-  
-  height: 550px;
-  border: 1px solid #ccc;
-}
-
-/* Customize the scrollbar */
-#content3::-webkit-scrollbar {
-  width: 5px;
-}
-
-#content3::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-#content3::-webkit-scrollbar-thumb {
-  background: #4361db; 
-}
-
-#content3::-webkit-scrollbar-thumb:hover {
-  background: #d0e513; 
-}
-
-/* #content 2 */
-#content2 {
-  
-  height: 550px;
-  border: 1px solid #ccc;
-}
-
-/* Customize the scrollbar */
-#content2::-webkit-scrollbar {
-  width: 5px;
-}
-
-#content2::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
-
-#content2::-webkit-scrollbar-thumb {
-  background: #4361db; 
-}
-
-#content2::-webkit-scrollbar-thumb:hover {
-  background: #d0e513; 
-}
-
-/* #content 1 */
-#content1 {
-  
-  height: 550px;
-  border: 1px solid #ccc;
-}
-
-/* Customize the scrollbar */
-#content1::-webkit-scrollbar {
-  width: 5px;
-}
-
-#content1::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
-
-#content1::-webkit-scrollbar-thumb {
-  background: #4361db; 
-}
-
-#content1::-webkit-scrollbar-thumb:hover {
-  background: #d0e513; 
-}
-</style>
-
-<!-- ribbon elemnts -->
-<style>
-  .mp4-text {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    transform: rotate(30deg);
-    background-color: blue;
-    border-radius: 10px;
-    padding: 5px;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: rotate(20deg) scale(1);
-    }
-    50% {
-      transform: rotate(25deg) scale(1.1);
-    }
-    100% {
-      transform: rotate(30deg) scale(1);
-    }
-  }
-</style>
 
 
 {% endblock script %}
 
+{% block content %}
 
-<div class="row pt-5 mt-5">
-  <div class="col-md-8 text-center text-md-start mx-auto">
-      <div class="text-center">
-          <h1 class="display-4 fw-bold mb-5">SocialScraper.com - Best Youtube Video Downloader<br /></h1>
-          <p class="fs-5 text-muted mb-5">Download Video and Audio from youtube in High-Quality HD !</p>
-          <form class="d-flex justify-content-center flex-wrap" method="post" action="" onsubmit="return validateForm()">{% csrf_token %}
-
-              <div class="shadow-lg mb-3"><input class="form-control" type="url" name="link" placeholder="Enter a Valid URL" /></div>
-              <div class="shadow-lg mb-3"><button class="btn btn-primary" type="submit">DOWNLOAD</button></div>
-          </form>
-          <script>
-            function validateForm() {
-                var urlInput = document.getElementById("urlInput").value;
-                var youtubeRegex = /^(https?\:\/\/)?(www\.|m\.)(youtube\.com|youtu\.?be)(\/watch\?v=|\/embed\/|\/)([a-zA-Z0-9_-]{11})/;
-                if (youtubeRegex.test(urlInput)) {
-                    return true;
-                } else {
-                    alert("Please enter a valid YouTube URL");
-                    return false;
-                }
-            }
-          </script>
+<div class="container-custom">
+  <div class="owl-carousel">
+    {% for cat in cats %}
+    <div class="card item">
+      <div class="img-container">
+        <img src="/media/{{cat.image}}" class="responsive-img" alt="">
       </div>
-  </div>
-  <div class="col-12 col-lg-10 mx-auto">
-      <div class="text-center position-relative"></div>
+      <div class="card-content">
+        <div class="card-title">{{cat.title}}</div>
+        <p class="truncate">{{cat.description}}</p>
+        <div class="container center-align mt20">
+          <a href="/blogs/category/{{cat.url}}" class="btn bg-primary">VIEW</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </div>
 
 
-
-
-{% if linkIsGivenOrNot %}
-  
-
-
-  <row>  
-    <section class="pricing-table" >
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="center" style="max-height: 300px;margin-top: 5px;margin-bottom: 15px;padding: 5px;text-align: center;max-width: 550px;">
-                <div class="video-container" style="text-align: center;"><iframe allowfullscreen="" frameborder="0" src="{{embedinglink}}" width="853" height="480" style="max-height: 350px;text-align: center;"></iframe></div>
-              </div>
-            </div>
-            <div class="col-md-6" style="max-width: 550px;">
-
-              
-  <div id="tsum-tabs">
-    
-    
-    <main >
-
-      
-      
-      <input id="tab1" type="radio" name="tabs" checked>
-      <label for="tab1">Video</label>
-      
-      <input id="tab2" type="radio" name="tabs">
-      <label for="tab2">Only Video</label>
-      
-      <input id="tab3" type="radio" name="tabs">
-      <label for="tab3">Audio</label>
-      
-      
-      
-      <section id="content1" style="width: 90%;height:550px;overflow-x: hidden;overflow-y: scroll;">
-
-        
-        <div class="pricing-area text-center" style="max-height:25px;">
-          <div class="row" style="height:10px;">  
-            <div class="col-sm-6 col-md-3 plan price red wow fadeInDown" style="width:420px;" id="buttons-container">
-              
-              {% for video in video_info %} 
-
-                <ul class="list-group" style="margin-bottom: 8px;margin-top: 5px;">
-                  <li class="list-group-item heading">
-                    <h3>Video - {{ video.0 }}</h1><span style="background-color: #45848e;" class="price">Size : {{ video.2 }}</span>
-                  </li>
-                  <li class="list-group-item plan-action">
-                    <a id="down-system" style="margin-right: 10px;" class="btn" href="{% url 'download' url=video.1 filename=titleofvideo|add:'.'|add:video.3 %}">Download</a>
-                    <a style="background-color: #45848e; color: black ; font-size: 10px;" class="btn" href="{{ video.1 }}">Preview</a>
-                  </li>
-                </ul>
-                <br>
-
-              {% endfor %}
-
-                
-              
-            </div>
-          </div>
+<div class="container">
+  <div class="row">
+    {% for p in posts %}
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="/media/{{p.image}}" class="responsive-img" style="height: 200px;">
+          <span class="card-title">{{ p.title }}</span>
         </div>
-                
-      </section>
-      
-      <section id="content2" style="height: 550px;width: 90%;overflow-y: scroll;overflow-x: hidden;">
-
-        
-        <div class="pricing-area text-center" style="max-height:25px;">
-          <div class="row">
-            <div class="col-sm-4 plan price green wow fadeInDown" style="width:420px;">
-        
-              {% for onlyVideo in onlyVid_info %} 
-              
-              <ul class="list-group" style="margin-bottom: 5px;">
-                <li class="list-group-item heading">
-                  <h3>Only Video - {{ onlyVideo.0 }}</h1><span style="background-color: #c58724;" class="price">Size - {{ onlyVideo.2 }}</span>
-                  </li>
-                  <li class="list-group-item plan-action">
-                    <a style="margin-right: 10px;" class="btn" href="{% url 'download' url=onlyVideo.1 filename=titleofvideo|add:'.'|add:onlyVideo.3 %}">Download</a>
-                    <a style="background-color: #45848e; color: black ; font-size: 10px;" class="btn" href="{{ onlyVideo.1 }}">Preview</a>
-                  </li>
-                  <div class="mp4-text">MP4</div>
-                </ul>
-                <br>
-                
-                {% endfor %}
-                
-              </div>
-            </div>
+        <div class="card-content">
+          <p class="post-content">
+          <p class="post-content">{{ p.content | striptags | truncatewords_html:40|safe }}</p>
+          </p>
         </div>
-        
-        
-      </section>
-      
-      <section id="content3" style="width: 90%;height: 550px;overflow-y: scroll;overflow-x: hidden;">
-          
-
-
-        <div class="pricing-area text-center" style="max-height:25px;">
-          <div class="row">  
-            <div class="col-sm-6 col-md-3 plan price default wow fadeInDown" style="width:420px;">
-              
-              {% for audio in audio_info %} 
-              
-              <ul class="list-group" style="margin-bottom: 5px;">
-                <li class="list-group-item heading">
-                      <h3>Audio - {{ audio.0 }}</h1><span style="background-color: #d73f79;" class="price">Size - {{ audio.2 }}</span>
-                      </li>
-                      <li class="list-group-item plan-action">
-                        <a style="margin-right: 10px;" class="btn" href="{% url 'download' url=audio.1 filename=titleofvideo|add:'.'|add:audio.3 %}">Download</a>
-                      <a style="background-color: #45848e; color: black ; font-size: 10px;" class="btn" href="{{ audio.1 }}">Preview</a>
-                    </li>
-                  </ul>
-                  <br>
-    
-                {% endfor %}
-                
-              </div>
-            </div>
-          </div>
-          
-
-          
-        </section>
-        
-        
-        
-      </main>
+        <div class="card-action">
+          <a href="/blogs/post/{{ p.url }}" class="btn bg-primary">Read More..</a>
+        </div>
       </div>
-      
     </div>
+    {% endfor %}
   </div>
-  </div>
-  </div>
-  </section>
+</div>
 
-  </row>
+<div class="social-icons">
 
-{% endif %}
+  
+  <!-- WhatsApp Share -->
+  <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  
+  <!-- Instagram Share -->
+  <a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-instagram"></i></a>
+  
+  <!-- Facebook Share -->
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-facebook"></i></a>
+  
+  <!-- Twitter Share -->
+  <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-twitter"></i></a>
+  
+  <!-- Pinterest Share -->
+  <a href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&amp;media={{ post.image.url }}&amp;description={{ post.title }}" target="_blank"><i class="fab fa-pinterest"></i></a>
+  
+  <!-- Reddit Share -->
+  <a href="https://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ post.title }}" target="_blank"><i class="fab fa-reddit"></i></a>
+  
+  <!-- LinkedIn Share -->
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+
+</div>
+
+<script>
+  // get the social-icons element
+const socialIcons = document.querySelector('.social-icons');
+
+// create a new Intersection Observer
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    // if the social-icons element is in view
+    if (entry.isIntersecting) {
+      // add the 'show' class to the social-icons element
+      socialIcons.classList.add('show');
+      // disconnect the observer to stop observing
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.5 }); // set the threshold to 50% of the element in view
+
+// observe the social-icons element
+observer.observe(socialIcons);
+
+</script>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{% static 'main/assets/js/bs-init.js' %}"></script>
-<script src="{% static 'main/assets/js/Animated-Type-Heading-type-headline.js' %}"></script>
-<script src="{% static 'main/assets/js/Animated-Typing-With-Blinking-Animated-Type-Heading.js' %}"></script>
-<script src="{% static 'main/assets/js/Pricing-Tables-pricing-tables.js' %}"></script>
-<script src="{% static 'main/assets/js/Pricing-Tables-wow.js' }"></script>
-<script src="{% static 'main/assets/js/startup-modern.js' %}"></script>
-
-
-
-
-
-{% endblock body %}
-
+{% endblock %}
